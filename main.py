@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Path, Query, HTTPException
 from fastapi.responses import JSONResponse
-from schemas import Patient
+from schemas import Patient, PatientUpdate
 import json
 
 app = FastAPI()
@@ -74,5 +74,38 @@ def create_patient(patient: Patient):
 
     # return success message    
     return JSONResponse(status_code=201, content={"message": "Patient created successfully", "patient_id": patient.id})
+
+
+@app.put('/update/{patient_id}')
+def update_patient(patient_id: str, updated_patient: PatientUpdate):
+    data = load_data()
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient not found")
+
+    # Update patient data
+    patient_data = data[patient_id]
+    for field, value in updated_patient.model_dump(exclude_unset=True).items():
+        # exclude_unset=True -> ensures that only provided fields are updated
+        if field in patient_data:
+            patient_data[field] = value
+
+    # Save updated data
+    data[patient_id] = patient_data
+    save_data(data)
+
+    return JSONResponse(status_code=200, content={"message": "Patient updated successfully", "patient_id": patient_id})
+
+
+@app.delete('/delete/{patient_id}')
+def delete_patient(patient_id: str):
+    data = load_data()
+    if patient_id not in data:
+        raise HTTPException(status_code=404, detail="Patient not found")
+
+    # Delete patient
+    del data[patient_id] # Remove the patient from the data dictionary
+    save_data(data)
+
+    return JSONResponse(status_code=204, content={}) # No content
 
 # uvicorn main:app --reload

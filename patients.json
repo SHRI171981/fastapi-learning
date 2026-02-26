@@ -1,14 +1,4 @@
 {
-    "P001": {
-        "name": "Ananya Verma",
-        "city": "Guwahati",
-        "age": 28,
-        "gender": "female",
-        "height": 1.65,
-        "weight": 90.0,
-        "bmi": 33.06,
-        "verdict": "Obese"
-    },
     "P002": {
         "name": "Ravi Mehta",
         "city": "Mumbai",
@@ -29,16 +19,6 @@
         "bmi": 17.58,
         "verdict": "Underweight"
     },
-    "P004": {
-        "name": "Arjun Verma",
-        "city": "Mumbai",
-        "age": 40,
-        "gender": "male",
-        "height": 1.8,
-        "weight": 90.0,
-        "bmi": 27.78,
-        "verdict": "Normal"
-    },
     "P005": {
         "name": "Neha Sinha",
         "city": "Kolkata",
@@ -56,15 +36,6 @@
         "height": 173.0,
         "weight": 68.0,
         "BMI": 22.72,
-        "verdict": "Normal"
-    },
-    "P007": {
-        "name": "Srija",
-        "age": 22,
-        "gender": "female",
-        "height": 157.0,
-        "weight": 58.0,
-        "BMI": 23.53,
         "verdict": "Normal"
     }
 }
