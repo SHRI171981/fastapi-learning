@@ -1,14 +1,20 @@
 from fastapi import FastAPI, Path, Query, HTTPException
+from fastapi.responses import JSONResponse
+from schemas import Patient
 import json
 
 app = FastAPI()
-
+    
 
 def load_data():
     with open("patients.json", "r") as f:
         data = json.load(f)
     return data
 
+
+def save_data(data):
+    with open("patients.json", "w") as f:
+        json.dump(data, f, indent=4)
 
 @app.get("/")
 def hello():
@@ -51,5 +57,22 @@ def sort_patients(
     sort_des = True if order_by == "descending" else False
     sorted_data = sorted(data.values(), key=lambda x: x[sort_by], reverse=sort_des)
     return {"sorted_data": sorted_data}
+
+
+@app.post('/create')
+def create_patient(patient: Patient):
+    # Load existing data
+    data = load_data()
+
+    # check exists
+    if patient.id in data:
+        raise HTTPException(status_code=400, detail="Patient with this ID already exists")
+
+    # add new patient
+    data[patient.id] = patient.model_dump(exclude={"id"})
+    save_data(data)
+
+    # return success message    
+    return JSONResponse(status_code=201, content={"message": "Patient created successfully", "patient_id": patient.id})
 
 # uvicorn main:app --reload

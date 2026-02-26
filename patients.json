@@ -48,5 +48,23 @@
         "weight": 75,
         "bmi": 31.22,
         "verdict": "Obese"
+    },
+    "P006": {
+        "name": "Shri",
+        "age": 22,
+        "gender": "male",
+        "height": 173.0,
+        "weight": 68.0,
+        "BMI": 22.72,
+        "verdict": "Normal"
+    },
+    "P007": {
+        "name": "Srija",
+        "age": 22,
+        "gender": "female",
+        "height": 157.0,
+        "weight": 58.0,
+        "BMI": 23.53,
+        "verdict": "Normal"
     }
 }
